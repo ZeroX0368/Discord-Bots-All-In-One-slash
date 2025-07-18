@@ -21,11 +21,7 @@ module.exports = {
                 .setName('stats')
                 .setDescription('Display bot statistics')
         )
-        .addSubcommand(subcommand =>
-            subcommand
-                .setName('invite')
-                .setDescription('Get bot invite link')
-        )
+        
         .addSubcommand(subcommand =>
             subcommand
                 .setName('serverlist')
@@ -66,9 +62,7 @@ module.exports = {
                 case 'stats':
                     await this.handleStats(interaction);
                     break;
-                case 'invite':
-                    await this.handleInvite(interaction);
-                    break;
+                
                 case 'serverlist':
                     await this.handleServerList(interaction);
                     break;
@@ -163,44 +157,13 @@ module.exports = {
         await interaction.reply({ embeds: [embed] });
     },
 
-    async handleInvite(interaction) {
-        const client = interaction.client;
-        
-        // Create invite link with necessary permissions
-        const permissions = [
-            PermissionFlagsBits.SendMessages,
-            PermissionFlagsBits.EmbedLinks,
-            PermissionFlagsBits.ReadMessageHistory,
-            PermissionFlagsBits.UseSlashCommands,
-            PermissionFlagsBits.ManageRoles,
-            PermissionFlagsBits.ManageChannels,
-            PermissionFlagsBits.ManageMessages,
-            PermissionFlagsBits.BanMembers,
-            PermissionFlagsBits.ManageEmojisAndStickers,
-            PermissionFlagsBits.ViewChannel
-        ];
-
-        const permissionsBigInt = permissions.reduce((acc, perm) => acc | perm, 0n);
-        const inviteLink = `https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=${permissionsBigInt}&scope=bot%20applications.commands`;
-
-        const embed = new EmbedBuilder()
-            .setTitle('🔗 Invite Bot')
-            .setDescription(`Click the link below to invite me to your server!`)
-            .addFields(
-                { name: 'Invite Link', value: `[Click here to invite](${inviteLink})`, inline: false },
-                { name: 'Permissions', value: 'The bot will request the necessary permissions to function properly.', inline: false }
-            )
-            .setColor(0x00AE86)
-            .setTimestamp()
-            .setThumbnail(client.user.displayAvatarURL({ dynamic: true }));
-
-        await interaction.reply({ embeds: [embed] });
-    },
+    
 
     async handleServerList(interaction) {
+        const OWNER_ID = "1142053791781355561";
         
         // Check if user is owner
-        if (interaction.user.id !== ownerId) {
+        if (interaction.user.id !== OWNER_ID) {
             await interaction.reply({ 
                 content: 'This command is restricted to the bot owner only.', 
                 ephemeral: true 
@@ -271,7 +234,6 @@ module.exports = {
     },
 
     async handleRemoveFromServer(interaction) {
-        
         // Check if user is owner
         if (interaction.user.id !== ownerId) {
             await interaction.reply({ 

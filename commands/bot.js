@@ -1,5 +1,6 @@
 
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { ownerId } = require('../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -197,10 +198,9 @@ module.exports = {
     },
 
     async handleServerList(interaction) {
-        const OWNER_ID = "1142053791781355561";
         
         // Check if user is owner
-        if (interaction.user.id !== OWNER_ID) {
+        if (interaction.user.id !== ownerId) {
             await interaction.reply({ 
                 content: 'This command is restricted to the bot owner only.', 
                 ephemeral: true 
@@ -271,10 +271,9 @@ module.exports = {
     },
 
     async handleRemoveFromServer(interaction) {
-        const OWNER_ID = "1142053791781355561";
         
         // Check if user is owner
-        if (interaction.user.id !== OWNER_ID) {
+        if (interaction.user.id !== ownerId) {
             await interaction.reply({ 
                 content: 'This command is restricted to the bot owner only.', 
                 ephemeral: true 
@@ -359,10 +358,9 @@ module.exports = {
     },
 
     async handleServerListButtons(interaction) {
-        const OWNER_ID = "1142053791781355561";
         
         // Check if user is owner
-        if (interaction.user.id !== OWNER_ID) {
+        if (interaction.user.id !== ownerId) {
             await interaction.reply({ 
                 content: 'This command is restricted to the bot owner only.', 
                 ephemeral: true 

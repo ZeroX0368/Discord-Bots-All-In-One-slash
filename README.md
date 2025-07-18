@@ -1,1 +1,7 @@
-# Discord-Bots-All-In-One-slash
+## Running 
+```bash
+  npm install
+```
+```bash
+  node index.js
+```

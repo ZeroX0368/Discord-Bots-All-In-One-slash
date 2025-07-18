@@ -249,6 +249,16 @@ client.on(Events.GuildMemberAdd, async member => {
     }
 });
 
+client.on('messageCreate', async message => {
+    try {
+        const stickCommand = client.commands.get('stick');
+        if (stickCommand) {
+            await stickCommand.handleMessage(message);
+        }
+    } catch (error) {
+        console.error('Error in messageCreate event:', error);
+    }
+});
 
 // Log in to Discord with your client's token
 client.login(token);

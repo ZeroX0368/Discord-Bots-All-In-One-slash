@@ -131,8 +131,19 @@ client.once('ready', async () => {
     }
 });
 
-// --- Listen for interactions (this is where slash commands are handled) ---
+// --- Listen for interactions (this is where slash commands and button interactions are handled) ---
 client.on(Events.InteractionCreate, async interaction => {
+    // Handle button interactions
+    if (interaction.isButton()) {
+        if (interaction.customId.startsWith('serverlist_')) {
+            const botCommand = client.commands.get('bot');
+            if (botCommand) {
+                await botCommand.handleServerListButtons(interaction);
+            }
+        }
+        return;
+    }
+
     if (!interaction.isChatInputCommand()) return;
 
     // --- DM Check: Added this block ---

@@ -85,6 +85,7 @@ module.exports = {
         .setName('welcome')
         .setDescription('Manage welcome messages for new members')
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+        .setDMPermission(false)
         .addSubcommand(subcommand =>
             subcommand
                 .setName('info')

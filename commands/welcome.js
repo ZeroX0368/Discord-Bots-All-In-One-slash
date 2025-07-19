@@ -155,11 +155,6 @@ module.exports = {
                             { name: 'Embed', value: 'embed' }
                         )
                 )
-        )
-        .addSubcommand(subcommand =>
-            subcommand
-                .setName('reset')
-                .setDescription('Reset welcome configuration for this server')
         ),
 
     async execute(interaction) {
@@ -356,25 +351,6 @@ module.exports = {
                     .setTimestamp();
 
                 await interaction.reply({ embeds: [formatEmbed] });
-                break;
-
-            case 'reset':
-                if (!guildConfig.channel && !guildConfig.message) {
-                    await interaction.reply({ content: 'No welcome configuration exists to reset.', ephemeral: true });
-                    return;
-                }
-
-                // Completely remove the server's configuration
-                delete config[guildId];
-                saveWelcomeConfig(config);
-
-                const resetEmbed = new EmbedBuilder()
-                    .setTitle('Welcome Configuration Reset')
-                    .setDescription('Welcome message configuration has been completely removed from this server.')
-                    .setColor(0xFF9900)
-                    .setTimestamp();
-
-                await interaction.reply({ embeds: [resetEmbed] });
                 break;
         }
     },

@@ -271,5 +271,13 @@ client.on('messageCreate', async message => {
     }
 });
 
+// Handle new member joins
+client.on('guildMemberAdd', async (member) => {
+    const welcomeCommand = client.commands.get('welcome');
+    if (welcomeCommand && welcomeCommand.handleMemberJoin) {
+        await welcomeCommand.handleMemberJoin(member);
+    }
+});
+
 // Log in to Discord with your client's token
 client.login(token);
